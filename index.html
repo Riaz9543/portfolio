@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riaz — Portfolio</title>
+    <meta name="description" content="Portfolio of Riaz — projects pulled from GitHub">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --muted: #94a3b8;
+            --accent: #7dd3fc;
+            --primary: #3b82f6;
+            --text: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --border: #334155;
+            --gradient-start: #0ea5e9;
+            --gradient-end: #0c4a6e;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        .header {
+            background: linear-gradient(120deg, #0f172a 0%, #1e293b 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 2rem 0;
+        }
+        
+        .logo {
+            width: 70px;
+            height: 70px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            display: grid;
+            place-items: center;
+            font-weight: 700;
+            color: white;
+            font-size: 1.8rem;
+            box-shadow: 0 4px 20px rgba(14, 165, 233, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .hero-section {
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .hero-title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+        
+        .hero-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            font-weight: 400;
+        }
+        
+        .about-section {
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin: 2rem 0 3rem;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        
+        .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--gradient-start);
+            display: inline-block;
+        }
+        
+        .about-text {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .about-content {
+            max-height: 200px;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            position: relative;
+        }
+        
+        .about-content.expanded {
+            max-height: 1000px;
+        }
+        
+        .about-content:not(.expanded)::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(to bottom, transparent, rgba(30, 41, 59, 0.9));
+            pointer-events: none;
+            border-radius: 0 0 16px 16px;
+        }
+        
+        .about-highlight {
+            color: var(--accent);
+            font-weight: 500;
+        }
+        
+        .read-more-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent);
+            background: rgba(14, 165, 233, 0.1);
+            border: 1px solid rgba(14, 165, 233, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .read-more-toggle:hover {
+            background: rgba(14, 165, 233, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .card-custom {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            height: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-custom:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(14, 165, 233, 0.15);
+            border-color: rgba(14, 165, 233, 0.3);
+        }
+        
+        .card-title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
+        
+        .card-title a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s;
+        }
+        
+        .card-title a:hover {
+            color: var(--accent);
+        }
+        
+        .readme-content {
+            color: var(--text-secondary);
+            font-size: 15px;
+            max-height: 150px;
+            overflow: hidden;
+            position: relative;
+            line-height: 1.7;
+        }
+        
+        .readme-content.expanded {
+            max-height: none;
+            overflow: auto;
+        }
+        
+        .readme-content:not(.expanded)::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(to bottom, transparent, var(--card));
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            padding: 0.6rem 1.8rem;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4);
+        }
+        
+        .btn-custom {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            transition: all 0.3s;
+            padding: 0.5rem 1.5rem;
+        }
+        
+        .btn-custom:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+            color: var(--text);
+        }
+        
+        .readme-toggle {
+            color: var(--accent);
+            background: none;
+            border: none;
+            padding: 0;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        
+        .readme-toggle:hover {
+            color: var(--gradient-start);
+        }
+        
+        .form-control, .form-control:focus {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border);
+            color: var(--text);
+            border-radius: 8px;
+            padding: 0.7rem 1rem;
+        }
+        
+        .form-control:focus {
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
+            border-color: var(--gradient-start);
+        }
+        
+        .form-control::placeholder {
+            color: var(--muted);
+        }
+        
+        footer {
+            color: var(--muted);
+            margin-top: 5rem;
+            padding: 2.5rem 0;
+            background: rgba(15, 23, 42, 0.9);
+            border-top: 1px solid var(--border);
+        }
+        
+        .emoji {
+            font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+            font-size: 1.1em;
+            vertical-align: middle;
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 0.3rem 0.7rem;
+            background: rgba(14, 165, 233, 0.15);
+            color: var(--accent);
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid rgba(14, 165, 233, 0.2);
+        }
+        
+        .stats {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.2rem;
+        }
+        
+        .stat-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        .search-section {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 1.8rem;
+            margin-bottom: 2.5rem;
+            border: 1px solid var(--border);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .status-card {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 1.2rem 1.8rem;
+            border: 1px solid var(--border);
+            margin-bottom: 2.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .github-icon {
+            color: var(--gradient-start);
+            font-size: 1.2rem;
+            margin-right: 0.5rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+        
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text);
+            transition: all 0.3s;
+            border: 1px solid var(--border);
+        }
+        
+        .social-link:hover {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(14, 165, 233, 0.3);
+        }
+        
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+            margin-top: 1.5rem;
+        }
+        
+        .skill-tag {
+            padding: 0.4rem 0.9rem;
+            background: rgba(14, 165, 233, 0.1);
+            color: var(--accent);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(14, 165, 233, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+                <div class="d-flex align-items-center mb-3 mb-md-0">
+                    <div class="logo me-3">Riaz</div>
+                    <div>
+                        <h1 class="h3 mb-0" style="color: var(--text);">Md Riaz Uddin</h1>
+                        <p class="mb-0" style="color: var(--text-secondary);">Full Stack Developer & AI Enthusiast</p>
+                    </div>
+                </div>
+                
+                <div class="social-links">
+                    <a class="social-link" href="https://github.com/Riaz9543" target="_blank">
+                        <i class="bi bi-github"></i>
+                    </a>
+                    <a class="social-link" href="https://youtube.com/@acode-app" target="_blank">
+                        <i class="bi bi-youtube"></i>
+                    </a>
+                    <a class="social-link" href="https://www.facebook.com/riaz.programer" target="_blank">
+                        <i class="bi bi-facebook"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">Creative Developer Portfolio</h1>
+                <p class="hero-subtitle">Showcase of my projects and skills in web development and artificial intelligence</p>
+            </div>
+        </section>
+
+        <section class="about-section">
+            <h2 class="section-title">About Me</h2>
+            
+            <div class="about-content" id="aboutContent">
+                <p class="about-text">
+                    Hi, I'm MD Riaz Uddin, a passionate programmer and developer who loves building creative and efficient solutions with code. I enjoy exploring new technologies and continuously improving my skills in software development, artificial intelligence, and automation.
+                </p>
+                <p class="about-text">
+                    With hands-on experience from personal and collaborative projects, I focus on writing clean, optimized, and maintainable code. I'm always curious to learn, experiment, and share knowledge through platforms like GitHub and YouTube.
+                </p>
+                <p class="about-text">
+                    I believe in learning by building, and I'm always open to new opportunities where I can apply my skills to real-world problems and grow as a developer.
+                </p>
+                
+                <div class="skill-tags">
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">JavaScript</span>
+                    <span class="skill-tag">C</span>
+                    <span class="skill-tag">PHP</span>
+                    <span class="skill-tag">HTML</span>
+                    <span class="skill-tag">CSS</span>
+                    <span class="skill-tag">Machine Learning</span>
+                    <span class="skill-tag">Deep Learning</span>
+                    <span class="skill-tag">Data Analysis</span>
+                    <span class="skill-tag">NumPy</span>
+                    <span class="skill-tag">Pandas</span>
+                    <span class="skill-tag">Scikit-learn</span>
+                    <span class="skill-tag">Data Cleaning</span>
+                    <span class="skill-tag">GitHub</span>
+                    <span class="skill-tag">Linux/Termux</span>
+                    <span class="skill-tag">API Integration</span>
+                    <span class="skill-tag">Automation</span>
+                    <span class="skill-tag">Problem-solving</span>
+                    <span class="skill-tag">Debugging</span>
+                    <span class="skill-tag">Research</span>
+                </div>
+            </div>
+            
+            <div class="text-center mt-3">
+                <button class="read-more-toggle" id="readMoreToggle">
+                    <i class="bi bi-arrows-expand"></i> Read More
+                </button>
+            </div>
+        </section>
+
+        <main id="projects">
+            <h2 class="section-title">My Projects</h2>
+            
+            <div class="search-section">
+                <div class="row g-3">
+                    <div class="col-md-10">
+                        <label class="form-label small" style="color: var(--text-secondary);">Search projects</label>
+                        <input id="q" type="text" class="form-control form-control-lg" placeholder="Search by name or description...">
+                    </div>
+                    
+                    <div class="col-md-2 d-flex align-items-end">
+                        <button id="load" class="btn btn-primary btn-lg w-100">
+                            <i class="bi bi-cloud-download me-2"></i> Load
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="status-card" id="status">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-info-circle-fill github-icon"></i>
+                    <div style="color: var(--text-secondary);">Ready. Click "Load" to fetch repositories.</div>
+                </div>
+            </div>
+
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="grid"></div>
+        </main>
+
+        <footer class="text-center">
+            <div class="container">
+                <p>Built with HTML, CSS & JavaScript • No personal photos included</p>
+                <p class="small" style="color: var(--muted);">Clone or host this file on GitHub Pages.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+    const GITHUB_USER = 'Riaz9543';
+    const GITHUB_TOKEN = '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';
+    const perPage = 50;
+
+    const grid = document.getElementById('grid');
+    const status = document.getElementById('status');
+    const qInput = document.getElementById('q');
+    const loadBtn = document.getElementById('load');
+    const aboutContent = document.getElementById('aboutContent');
+    const readMoreToggle = document.getElementById('readMoreToggle');
+
+    let repos = [];
+
+    // Read More toggle functionality
+    readMoreToggle.addEventListener('click', function() {
+        aboutContent.classList.toggle('expanded');
+        
+        if (aboutContent.classList.contains('expanded')) {
+            this.innerHTML = '<i class="bi bi-arrows-collapse"></i> Show Less';
+        } else {
+            this.innerHTML = '<i class="bi bi-arrows-expand"></i> Read More';
+        }
+    });
+
+    async function fetchJson(url) {
+        const headers = { 
+            'Accept': 'application/vnd.github.v3+json',
+            'Authorization': 'token ' + GITHUB_TOKEN
+        };
+        const res = await fetch(url, { headers });
+        if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+        return res.json();
+    }
+
+    function decodeEmojiText(text) {
+        // Fix encoding issues with emojis and special characters
+        return text
+            .replace(/ð|ÿ|â|€|™/g, '') // Remove common encoding artifacts
+            .replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, match => {
+                // Handle UTF-16 surrogate pairs
+                try {
+                    return decodeURIComponent(escape(match));
+                } catch (e) {
+                    return match;
+                }
+            });
+    }
+
+    async function loadProfileAndRepos() {
+        status.innerHTML = '<div class="d-flex align-items-center"><div class="spinner-border spinner-border-sm text-primary me-2"></div> <span style="color: var(--text-secondary);">Fetching GitHub profile...</span></div>';
+        grid.innerHTML = '';
+        
+        try {
+            const profileUrl = `https://api.github.com/users/${GITHUB_USER}`;
+            await fetchJson(profileUrl);
+
+            status.innerHTML = '<div class="d-flex align-items-center"><div class="spinner-border spinner-border-sm text-primary me-2"></div> <span style="color: var(--text-secondary);">Fetching repositories...</span></div>';
+            const reposUrl = `https://api.github.com/users/${GITHUB_USER}/repos?per_page=${perPage}&sort=updated`;
+            repos = await fetchJson(reposUrl);
+
+            status.innerHTML = `<div class="d-flex align-items-center"><i class="bi bi-check-circle-fill text-success me-2"></i> <span style="color: var(--text-secondary);">Loaded ${repos.length} repositories.</span></div>`;
+            renderRepos(repos);
+        } catch(err) {
+            console.error(err);
+            status.innerHTML = `<div class="d-flex align-items-center"><i class="bi bi-exclamation-circle-fill text-danger me-2"></i> <span style="color: var(--text-secondary);">Fetch failed: ${err.message}</span></div>`;
+            showFallback();
+        }
+    }
+
+    function showFallback() {
+        grid.innerHTML = `
+            <div class="col">
+                <div class="card card-custom">
+                    <div class="card-body text-center py-5">
+                        <i class="bi bi-wifi-off display-4" style="color: var(--muted);"></i>
+                        <h3 class="mt-3" style="color: var(--text);">Can't fetch repositories</h3>
+                        <p class="text-muted">Check your internet connection and try again.</p>
+                    </div>
+                </div>
+            </div>`;
+    }
+
+    async function loadReadme(repoName) {
+        try {
+            const url = `https://api.github.com/repos/${GITHUB_USER}/${repoName}/readme`;
+            const res = await fetchJson(url);
+            const content = atob(res.content);
+            return content;
+        } catch(e) {
+            return 'No README available.';
+        }
+    }
+
+    function renderRepos(list) {
+        const query = qInput.value.trim().toLowerCase();
+        const filtered = list.filter(r => {
+            if (!r) return false;
+            const name = (r.name||'').toLowerCase();
+            const desc = (r.description||'').toLowerCase();
+            return name.includes(query) || desc.includes(query);
+        });
+        
+        if (filtered.length === 0) {
+            grid.innerHTML = `
+                <div class="col">
+                    <div class="card card-custom">
+                        <div class="card-body text-center py-5">
+                            <i class="bi bi-search display-4" style="color: var(--muted);"></i>
+                            <h3 class="mt-3" style="color: var(--text);">No projects found</h3>
+                            <p style="color: var(--text-secondary);">Try a different search term</p>
+                        </div>
+                    </div>
+                </div>`;
+            return;
+        }
+
+        grid.innerHTML = '';
+        filtered.forEach(r => {
+            const col = document.createElement('div');
+            col.className = 'col';
+            
+            // Fix encoding issues in description
+            const description = decodeEmojiText(r.description || 'No description');
+            
+            col.innerHTML = `
+                <div class="card card-custom h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <h5 class="card-title">
+                                <a href="${r.html_url}" target="_blank">${escapeHtml(r.name)}</a>
+                            </h5>
+                            <span class="tag">${r.language || 'Code'}</span>
+                        </div>
+                        
+                        <div class="stats">
+                            <span class="stat-item"><i class="bi bi-star"></i> ${r.stargazers_count}</span>
+                            <span class="stat-item"><i class="bi bi-diagram-2"></i> ${r.forks_count}</span>
+                            <span class="stat-item"><i class="bi bi-circle"></i> ${r.open_issues_count}</span>
+                        </div>
+                        
+                        <p class="card-text mb-3" style="color: var(--text-secondary);">${escapeHtml(description)}</p>
+                        
+                        <div class="readme-content" id="readme-${r.name}">
+                            <div class="d-flex justify-content-center py-2">
+                                <div class="spinner-border spinner-border-sm text-secondary" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <button class="readme-toggle" data-repo="${r.name}">
+                                <i class="bi bi-arrows-expand"></i> Read more
+                            </button>
+                            <small style="color: var(--text-secondary);">Updated: ${new Date(r.updated_at).toLocaleDateString()}</small>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            grid.appendChild(col);
+            
+            // Load README content
+            loadReadme(r.name).then(content => {
+                const readmeDiv = document.getElementById(`readme-${r.name}`);
+                if (readmeDiv) {
+                    // Process the README content to handle emojis and basic formatting
+                    let processedContent = processReadmeContent(content);
+                    readmeDiv.innerHTML = processedContent;
+                }
+            });
+        });
+        
+        // Add event listeners for readme toggle buttons
+        document.querySelectorAll('.readme-toggle').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const repoName = this.getAttribute('data-repo');
+                const readmeDiv = document.getElementById(`readme-${repoName}`);
+                
+                if (readmeDiv) {
+                    readmeDiv.classList.toggle('expanded');
+                    this.innerHTML = readmeDiv.classList.contains('expanded') ? 
+                        '<i class="bi bi-arrows-collapse"></i> Show less' : 
+                        '<i class="bi bi-arrows-expand"></i> Read more';
+                }
+            });
+        });
+    }
+
+    function processReadmeContent(content) {
+        // First fix encoding issues
+        content = decodeEmojiText(content);
+        
+        // Convert markdown links to HTML
+        content = content.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="text-info">$1</a>');
+        
+        // Convert markdown headers to HTML
+        content = content.replace(/^### (.*$)/gim, '<h3 class="h6 mt-3 mb-1">$1</h3>');
+        content = content.replace(/^## (.*$)/gim, '<h2 class="h5 mt-3 mb-1">$1</h2>');
+        content = content.replace(/^# (.*$)/gim, '<h1 class="h4 mt-3 mb-1">$1</h1>');
+        
+        // Convert markdown bold and italic
+        content = content.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        content = content.replace(/\*(.*?)\*/g, '<em>$1</em>');
+        
+        // Convert line breaks
+        content = content.replace(/\n/g, '<br>');
+        
+        // Convert code blocks (simple approach)
+        content = content.replace(/`([^`]+)`/g, '<code class="bg-dark px-1 rounded">$1</code>');
+        
+        return content;
+    }
+
+    function escapeHtml(s) {
+        if (!s) return '';
+        const div = document.createElement('div');
+        div.textContent = s;
+        return div.innerHTML;
+    }
+
+    loadBtn.addEventListener('click', loadProfileAndRepos);
+    
+    qInput.addEventListener('input', () => { 
+        if (repos.length) renderRepos(repos); 
+    });
+
+    // Auto-load on page load
+    document.addEventListener('DOMContentLoaded', loadProfileAndRepos);
+    </script>
+</body>
+</html>
